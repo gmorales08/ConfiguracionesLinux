@@ -1,0 +1,17 @@
+################################
+# AGRUPAR JUEGOS POR DECADAS
+################################
+select 
+    (select count(nombre) as juegos from juegos where lanzamiento >= 1980 and lanzamiento < 1990) as "1980 - 1989",
+    (select count(nombre) as juegos from juegos where lanzamiento >= 1990 and lanzamiento < 2000) as "1990 - 1999",
+    (select count(nombre) as juegos from juegos where lanzamiento >= 2000 and lanzamiento < 2010) as "2000 - 2009",
+    (select count(nombre) as juegos from juegos where lanzamiento >= 2010 and lanzamiento < 2020) as "2010 - 2019",
+    (select count(nombre) as juegos from juegos where lanzamiento >= 2020) as "2020 - "
+from juegos group by 1,2,3,4;
+
+
+#####################
+# AGRUPAR POR SAGAS #
+#####################
+
+SELECT saga, count(*) AS 'Numero de juegos' FROM juegos GROUP BY saga ORDER BY 2 DESC;
