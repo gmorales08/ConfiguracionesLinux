@@ -1,0 +1,9 @@
+# undo files
+*.un*
+
+
+### VIM ###
+
+#plugin instalation
+/CONFIGURACIONES/VIM/.vim/plugged/
+
