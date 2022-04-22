@@ -1,0 +1,214 @@
+PERMISOS DE SUDO : EDITAR FICHERO SUDOERS
+
+EXPLORADOR DE ARCHIVOS: NAUTILUS
+EDITOR PROGRAMACION: VIM
+EDITOR DE TEXTOS: gedit / emacs ?
+
+ESCRITORIO: GNOME (xorg11)
+
+DRIVERS WIFI REALTEK: 
+	apt install firmware-realtek
+	apt install firmware-ti-connectivity
+	
+control de servicios:
+	systemctl
+	deshabilitar un servicio: sudo systemctl disable servicio
+
+PAQUETERIA:
+	.deb -> paquetes creados para distribuciones basadas en debian
+	     -> instalar: dpkg -i paquete.deb
+	     -> desinstalar: dpkg -r paquete.deb
+	     -> tambien se pueden gestionar con apt
+	     
+	     
+EXTENSIONES GNOME
+	dash to dock
+	dash to panel
+	Sound Input & Output Device Chooser 
+	
+ESQUEMA DE COLORES DE 3 BITS
+                  HEX       TERMINAL-CODE
+	BLACK   - #000000 - 016
+	BLUE    - #0000FF - 021
+	GREEN   - #00FF00 - 046
+	AQUA    - #00FFFF - 051
+	RED     - #FF0000 - 196
+	FUCHSIA - #FF00FF - 201
+	YELLOW  - #FFFF00 - 226
+	WHITE   - #FFFFFF - 231
+	
+ARCHIVOS DE CONFIGURACION:
+	BASH -> ~/.bashrc
+	
+BASH:
+	la terminal solo puede usar 16 colores
+	
+VIM:
+	archivos: .vimrc -> configuracion basica
+	carpetas: .vim -> donde se van a meter archivos de pluggins, temas, etc
+	
+	gestor de plugins: vim-plug
+		plugins:	
+
+
+	
+COMANDOS:
+	ENLACES SIMBOLICOS:
+		ln -s origen destino	
+		
+Archivos y utilidades :
+	fzf para buscar archivos
+	
+	
+BBDD:
+	Mariadb instalar cliente y servidor
+	El archivo de configuracion se encuentra en /etc/mysql/my.cnf
+	
+	
+#################
+# CREAR DATABASE
+#################
+
+CREATE DATABASE juegos;
+
+
+#################################
+# CREAR USUARIO Y DARLE PERMISOS
+#################################
+
+CREATE USER 'usuario'@'localhost' IDENTIFIED BY 'password';
+GRANT ALL PRIVILEGES ON *.* TO 'nombre_usuario'@'localhost';
+
+
+###################
+# AGRUPAR POR TIPO
+###################
+
+SELECT saga, COUNT(saga) 
+FROM juegos 
+GROUP BY 1 
+ORDER BY 2 DESC;
+
+
+############################
+# MOSTRAR LINEAS DUPLICADAS
+############################
+
+# Para filtrar usando group by, se usa having en vez de where
+
+SELECT nombre, COUNT(nombre)
+FROM juegos 
+GROUP BY 1 
+HAVING COUNT(nombre)>1;
+
+# Este muestra los repetidos, sin contar el original
+
+SELECT nombre, repeticiones 
+FROM (SELECT nombre, ROW_NUMBER() OVER(PARTITION BY nombre) AS repeticiones   
+      FROM juegos) AS tabla_repeticiones 
+WHERE repeticiones>1; 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	si una consulta supera el ancho de pantalla y se ve desconfigurado, se puede añadir un \G antes del ; para que se visualice mejor.
+	
+	
+GNOME:
+	Para personalizar el aspecto: gnome-look
+	Temas / iconos: crear una carpeta .themes en la carpeta personal, descargar el archivo de gnome-look y pegarlo ahi, luego se puede seleccionar desde ajustes
+	Para cambiar solo los iconos, se tiene que crear una carpeta .icons
+Comprimir / Desconprimir archivos:
+	TAR: 
+		tar -cvf archivo.tar /dir_a_comprimir
+		tar -xvf archivo.tar (descomprime)
+		tar -tf archivo.tar (ver el contenido)
+		
+	GZ:
+		gzip -9 fichero.gz (comprimir)
+		gzip -d fichero.gz (descomprimir)
+		
+	TAR.GZ:
+		tar -czfv archivo.tar.gz ficheros (comprimir)
+		tar -xzvf archivo.tar.gz (descomprimir)
+		tar -tzf archivo.tar.gz (ver contenido)
+
+	BZ2:
+		bzip fichero  (comprime)
+		bzip2 -d fichero.bz2 (descomprime)
+			
+	TAR.BZ2:
+		tar -c ficheros | bzip2 > archivo.tar.bz2
+		bzip2 -dc archivo.tar.bz2 | tar -xv
+		bzip2 -dc archivo.tar.bz2 | tar -t
+		
+	ZIP:
+		zip archivo.zip ficheros
+		unzip archivo.zip
+		unzip -v archivo.zip
+		
+	RAR:
+		rar -a archivo.rar ficheros
+		unrar -x archivo.rar
+		unrar -v archivo.rar / unrar -l archivo.rar
+		
+	GIT
+	La clave ssh generada se guarda en /home/gabriel/.ssh/id_rsa.pub
+    para deshacer el ultimo commit no publicado: $git reset --hard HEAD~1
+        si queremos borrar el ultimo cambio hard, si solo queremos revisar, soft
+	
+	
+JAVA: se descarga desde jdk.java.net
+      La version de oracle es de pago
+      la openjdk es libre, aunque tambien de oracle
+      para descargarlo desde terminal apt install default-jdk
+      
+      
+      
+si el deposito de claves nos sigue pidiendo la contraseña aun habiendolo desintalado, hay que volver a  instalarlo (seahorse), y cambiar la contraseña de inicio de sesion a una contraseña en blanco, luego ya lo podemos desinstalar
+
+
+
+GTK:
+	para cambiar el tema que usa una aplicacion GTK3:
+		1. Buscar el .desktop de la aplicacion en /usr/share/applications
+		2. Modificarlo , y en el parametro exec
+		3: Ejemplo
+			Exec=codeblocks %F
+			Exec=env GTK_THEME=Adwaita codeblocks %F
+			
+			
+			
+Aplicaciones que uso: 
+
+
+
+las aplicaciones generalmente se instalan en /usr/share, aunque el directorio opt esta destinado a instalar aplicaciones de terceros
+			
+
+DRIVERS:
+	Para listar los drivers en uso : lspci
+	
+	
+Para listar todos los paquetes instalados en debian podemos usar dpkg -l
+
+
+En /etc/apt/sources.list podemos ver todos los repositorios de sofware donde se van a buscar las aplicaciones.
+
+
+
+Para convertir entre diferentes paqueterias, uso alien			
+			
+      
+
+
+
+	
+	

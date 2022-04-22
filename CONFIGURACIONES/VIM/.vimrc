@@ -1,4 +1,15 @@
+""""""""""""""""""""""""""""""""
 """"" CONFIGURACION DE VIM """""
+""""""""""""""""""""""""""""""""
+
+
+""""" TEMAS """""
+
+colorscheme gruvbox
+let g:gruvbox_contrast_dark='hard' "Paleta de colores de gruvbox
+set background=dark "Fondo dark / light
+
+"""""""""""""""""
 
 set number          "numero de linea
 set relativenumber  "numero de linea relativo
@@ -14,7 +25,7 @@ set nocompatible       "para quitar la compativilidad con vi
 
 set undofile           "permite deshacer cambios aunque se cierre el programa
 
-set fillchars+=vert:\⋮  "cambia el caracter que separa las ventanas
+set fillchars+=vert:\⋮ "cambia el caracter que separa las ventanas
 
 
 """"" Para NerdTree     """""
@@ -61,24 +72,27 @@ set statusline+=%P
 
 hi User1 ctermbg=black ctermfg=white guibg=black guifg=white
 
+
 """"""""""""""""""""""""""""""""""""
 
 
 
 
 
-"ATAJOS PERSONALIZADOS PARA VIM
+""""""""""""""""""""""""""""""""""""""""""
+""""" ATAJOS PERSONALIZADOS PARA VIM """""
+""""""""""""""""""""""""""""""""""""""""""
 
 let mapleader=" " "la tecla que inicia los atajos es el espacio
 
 
-"NERDTREE
+""""" NerdTree """""
 
 "esp + nt
 nmap <Leader>nt :NERDTreeFind<CR> 
 
 
-"EDITOR VIM
+""""" Editor Vim """""
 
 "guardar archivo
 map <Leader>w :w<CR>
@@ -87,7 +101,84 @@ map <Leader>w :w<CR>
 map <Leader>q :q<CR> 
 
 
-"PROGRAMACION
+""""" Programacion """""
 "abre una terminal en la derecha
-nnoremap <Leader>t :below vertical terminal<CR> 
+nnoremap <Leader>t :below vertical terminal<CR>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""
+
+
+
+
+
+"""""""""""""""""""
+""""" PLUGINS """""
+"""""""""""""""""""
+
+
+"Gestor de plugins -> vim-plug
+"Instalar desde https://github.com/junegunn/vim-plug
+"Los plugins se pueden buscar en https://vimawesome.com/
+
+":PlugInstall para instalar un plugin
+":PlugUpdate  para actualizar un plugin
+":PlugClean   para desinstalar los plugins no utilizados
+
+call plug#begin()
+
+
+""""" TEMAS """""
+"Gruvbox
+Plug 'morhetz/gruvbox'
+
+"""""""""""""""""
+
+
+""""" DIRECTORIOS / ARCHIVOS """""
+
+"arbol de directorios
+Plug 'preservim/nerdtree' 
+
+"iconos para el NERDTREE
+Plug 'ryanoasis/vim-devicons'
+
+
+"permite buscar archivos facilmente
+Plug 'junegunn/fzf'           
+
+""""""""""""""""""""""""""""""""""
+
+
+""""" UTILIDADES / ATAJOS """""
+
+"permite navegar entre ventanas con la tecla ctrl + h/j/k/l
+Plug 'christoomey/vim-tmux-navigator'
+
+"""""""""""""""""""""""""""""""
+
+
+""""" PROGRAMACION """""
+
+"vim-multi-cursor para usar varios cursores
+"Autocompletado
+Plug 'valloric/youcompleteme' 
+
+"Cuando se selecciona una palabra, al poner un parentesis, se autocierra
+Plug 'tpope/vim-surround'
+
+
+""""" C / C++ """""
+Plug 'octol/vim-cpp-enhanced-highlight'
+
+
+
+"""""""""""""""""""""""""
+
+
+call plug#end()
+
+""""""""""""""""""
+
+
 

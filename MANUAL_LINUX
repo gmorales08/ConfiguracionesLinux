@@ -1,0 +1,195 @@
++============================================================================+
+|  __  __                         _       _        _     _                   |
+| |  \/  | __ _ _ __  _   _  __ _| |   __| | ___  | |   (_)_ __  _   ___  __ |
+| | |\/| |/ _` | '_ \| | | |/ _` | |  / _` |/ _ \ | |   | | '_ \| | | \ \/ / |
+| | |  | | (_| | | | | |_| | (_| | | | (_| |  __/ | |___| | | | | |_| |>  <  |
+| |_|  |_|\__,_|_| |_|\__,_|\__,_|_|  \__,_|\___| |_____|_|_| |_|\__,_/_/\_\ |
+|                                                                            |
++============================================================================+
+                        
+
+                        
+                        -----------------------------
+                        
+                          Manual de Linux en español                          
+                        
+                        Realizado por Gabriel Morales
+                        
+                        -----------------------------
+                        
+                        Github: github.com/gmorales08
+                        
+                         Contacto: 888.gmd@gmail.com
+                         
+                        -----------------------------
+                             
+                             Ver 1.0: 22-04-2022
+                             
+                        -----------------------------
+
+
+
+Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, procedimientos y configuraciones que vaya realizando en mi sistema Linux. Actualmente uso Debian 11, pero la guia debería servir para cualquier distribución, salvando algunas diferencias puntuales.
+
+
+
++----------------------------------------------------------------------------+
+|                                  INDICE                                    |
++----------------------------------------------------------------------------+
+
+1. GENERALIDADES DE LINUX
+   
+   1.1. Directorios
+   
+   1.2. Archivos
+        1.2.1. Ficheros importantes
+               1.2.1.1 /etc/sudoers
+        1.2.2. Como crear un acceso directo
+        
+2. DISPOSITIVOS HARDWARE
+   
+   2.1. Medios extraibles
+        2.1.1. Error de solo lectura
+   2.2. Drivers
+        2.2.2. Drivers conocidos
+
+
+
++----------------------------------------------------------------------------+
+|                        1. GENERALIDADES DE LINUX                           |
++----------------------------------------------------------------------------+
+
+
+
+                             1.1. DIRECTORIOS                                      
+                             ----------------
+
+/usr/        : Utilidades y aplicaciones multi-usuario
+/usr/bin/    : Ejecutables de usuario
+/usr/sbin/   : Archivos binarios del sistema
+/usr/lib/    : Librerias esenciales y módulos del kernel
+/usr/share/  : Archivos compartidos (iconos, temas, configuracion, etc.)
+
+/boot/       : Archivos de arranque
+/dev/        : Archivos de los dispositivos hardware
+/proc/       : Documentacion del kernel y procesos
+/srv/        : Informacion del sistema sobre los servicios que ofrece
+/var/        : Guarda logs y variables del sistema durante su ejecución
+/run/        : Datos sobre los procesos en ejecución
+/sys/        : Archivos con información del sistema
+
+/etc/        : Archivos de configuracion del sistema
+/etc/opt/    : Archivos de configuracion para programas ubicados en /opt/
+
+/home/       : Carpetas de usuario
+/root/       : Directorio home de root
+
+/opt/        : Para instalar software y paquetes manualmente
+/tmp/        : Archivos temporales
+
+/media/      : Punto de montaje para medios removibles
+/mnt/        : Punto de montaje temporal para sistemas de archivos
+/lost+found/ : Archivos restaurados tras hacer una recuperacion del disco 
+
+
+
+                              1.2. ARCHIVOS                                                                       
+                              -------------
+ 
+                     ~~~ 1.2.1. Ficheros importantes ~~~                  
+                 
+                                /etc/sudoers
+                                
+Sirve para dar permisos de sudo a los usuarios, es decir, permite ejecutar la orden sudo
+Para ello hay que editar el fichero y agregar la linea:
+
+nombre_usuario ALL=(ALL:ALL) ALL                                             
+
+                                          
+ 
+                              
+                 ~~~ 1.2.2. Como crear un acceso directo ~~~                  
+
+Para crear un acceso directo de cualquier aplicacion  hay que crear un archivo .desktop y agregarle:
+
+[ Desktop Entry ]
+Encoding = UTF- 8
+Version = 1.0
+Type = Application
+Terminal = false
+Exec = Dirección del archivo o ejecutable
+Name= Nombre que recibirá la aplicación
+Icon= Dirección del icono que vamos a utilizar
+
+
+Ejemplo del acceso directo de Emacs:
+
+[Desktop Entry]
+Version=1.0
+Name=Emacs (Terminal)
+GenericName=Text Editor
+Comment=GNU Emacs is an extensible, customizable text editor - and more
+MimeType=text/english;text/plain;text/x-makefile;text/x-c++hdr;text/x-c++src;text/x-chdr;text/x-csrc;text/x-java;text/x-moc;text/x-pascal;text/x-tcl;text/x-tex;application/x-shellscript;text/x-c;text/x-c++;
+TryExec=/usr/bin/emacs
+Exec=/usr/bin/emacs -nw %F
+Icon=emacs
+Type=Application
+Terminal=true
+Categories=Utility;Development;TextEditor;
+Keywords=Text;Editor;
+
+
+Los accesos directos se ubican en /usr/share/applications/
+Si hemos instalado una aplicación en /opt/ y no vemos su acceso desde el lanzador de aplicaciones, seguramente sea porque no tiene una entrada .desktop en este directorio.
+
+
+                                 
+
+
+                            
++----------------------------------------------------------------------------+
+|                        2. DISPOSITIVOS HARDWARE                            |
++----------------------------------------------------------------------------+
+
+
+
+                         2.1. MEDIOS EXTRAIBLES                                       
+                         ----------------------                               
+
+                  ~~~ 2.1.1. Error de solo lectura ~~~                        
+
+Si al conectar un disco nos sale una alerta de solo lectura, o no nos permite escribir en el, debemos ejecutar los siguientes comandos en terminal:
+
+
+sudo fdisk -l              #para identificar el disco
+sudo ntfsfix /dev/sd*      #sobre el disco que no podemos escribir 
+sudo umount /dev/sd*       #para desmontarlo
+sudo mount -o rw /dev/sd*  #para montarlo nuevamente en modo lectura/escritura
+
+
+
+                              2.2. DRIVERS               
+                              ------------                                                     
+
+                    ~~~ 2.2.2. Drivers conocidos ~~~                                                           
+
+Controladora de red inalambrica Realtek
+
+Driver: RTL8821CE 802.11ac PCIe Wireless Network Adapter
+Instalacion: apt install firmware-realtek firmware-ti-connectivity
+Probado en: Debian 11                                          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
