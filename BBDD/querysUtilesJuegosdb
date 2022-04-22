@@ -15,3 +15,30 @@ from juegos group by 1,2,3,4;
 #####################
 
 SELECT saga, count(*) AS 'Numero de juegos' FROM juegos GROUP BY saga ORDER BY 2 DESC;
+
+
+#############################
+# MOSTRAR LINEAS DUPLICADAS #
+#############################
+
+# Para filtrar usando group by, se usa having en vez de where
+
+SELECT nombre, COUNT(nombre)
+FROM juegos 
+GROUP BY 1 
+HAVING COUNT(nombre)>1;
+
+# Este muestra los repetidos, sin contar el original
+
+SELECT nombre, repeticiones 
+FROM (SELECT nombre, ROW_NUMBER() OVER(PARTITION BY nombre) AS repeticiones   
+      FROM juegos) AS tabla_repeticiones 
+WHERE repeticiones>1;
+
+
+
+#############################
+# SI SE VISUALIZA MAL       #
+#############################
+
+Si una consulta supera el ancho de pantalla y se ve desconfigurado, se puede añadir un \G antes del ; para que se visualice mejor.

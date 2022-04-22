@@ -46,7 +46,8 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
    1.2. Archivos                                                              
         1.2.1. Ficheros importantes                                           
                1.2.1.1 /etc/sudoers
-               1.2.1.2 ~/.bashrc                                           
+               1.2.1.2 ~/.bashrc   
+               1.2.1.3 /etc/apt/sources.list                                  
         1.2.2. Como crear un acceso directo
         1.2.3. Enlaces simbólicos
         1.2.4. Compresion / descompresion de archivos                             
@@ -61,7 +62,8 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
    3.1. Medios extraibles                                                     
         3.1.1. Error de solo lectura                                          
    
-   3.2. Drivers                                                               
+   3.2. Drivers
+        3.2.1. Gestión de drivers                                                
         3.2.2. Drivers conocidos                                              
                                                                               
 4. PAQUETERIA                                                                 
@@ -71,8 +73,7 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
         4.1.2. Dpkg
         
    4.2. Fuentes de software
-   
-   
+      
 5. APLICACIONES Y UTILIDADES
 
     5.1. Editores de texto / IDEs
@@ -80,18 +81,31 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
          
     5.2. Programacion
          5.2.1. Git
+         5.2.2. Java
          
-    5.3. Utilidades
-         5.3.1. Fzf
+    5.3. Bases de datos
+         5.3.1. MySQL
+         
+    5.4. Utilidades
+         5.4.1. Fzf
+         5.4.2. Alien
+         
+7. PROBLEMAS COMUNES
+
+   7.1. Contraseña del deposito de claves
    
 8. PERSONALIZACION
    
    8.1. Temas
         8.1.1. Tema de la terminal
         8.1.2. Tema del entorno grafico y de los iconos
+        8.1.3. Cambiar el tema de una aplicación GTK
    
    8.2. Terminal
    
+
+
+
 
                                                    
 +----------------------------------------------------------------------------+
@@ -160,7 +174,17 @@ Para cambiar el prompt ver seccion 8.2 Terminal
 
 Si escribimos un comando de terminal en .bashrc, este se ejecutara al iniciar una nueva instancia de terminal.
  
- 
+
+                            /etc/apt/sources.list
+                            
+Fichero donde se guardan los repositorios de sofware.
+Podemos agregar o eliminar repositorios, asi como determinar la rama del repositorio en la que se busca (main, contrib, non-free, etc.)
+
+Ejemplo: deb http://deb.debian.org/debian/ bullseye main contrib
+
+Cuando realizamos apt update, el sistema busca software de estos repositorios.
+                             
+                             
                               
                  ~~~ 1.2.2. Como crear un acceso directo ~~~                  
 
@@ -240,6 +264,10 @@ Formatos más utilizados:
              unrar -x archivo.rar                      (descomprimir) 
              unrar -v archivo.rar                      (ver contenido)
              
+
+
+
+
                        
 +----------------------------------------------------------------------------+
 |                          2. SERVICIOS Y PROCESOS                           |
@@ -294,7 +322,21 @@ sudo mount -o rw /dev/sd*  #para montarlo nuevamente en modo lectura/escritura
 
 
                                  3.2. DRIVERS                              
-                                 ------------                                    
+                                 ------------    
+                                                                 
+                      ~~~ 3.2.1. Gestión de drivers ~~~
+
+Desde terminal podemos listar los drivers instalados dependiendo de su puerto:
+
+    lshw                # Lista todos los dispositivos conectados
+    lspci               # Lista los dispositivos PCI
+    lsusb               # Lista los dispositivos USB
+    xinput              # Lista perifericos de entrada (touchpad, raton, etc.)
+    
+    lsmod               # Lista los modulos del kernel cargados
+    lsmod | grep nvidia # Para ver un modulo concreto (ej. Nvidia)                
+
+
 
                        ~~~ 3.2.2. Drivers conocidos ~~~                          
 
@@ -377,6 +419,9 @@ Si .vimrc no esta creado, se puede crear para agregar la configuracion.
 
 Tambien hay una carpeta .vim ubicada en home, donde se guarda mas configuración como los plugins.
 Los plugins se gestion con un gestor de plugins como, por ejemplo, vim-plug.
+
+
+
 
 
 
@@ -490,16 +535,101 @@ Es importante agregar el .gitignore a git (git add .gitignore) para que otras pe
                                
                                
                                
-                               5.3. UTILIDADES
+                             ~~~ 5.2.2. Java ~~~
+                             
+Actualmente existen dos versiones de Java, Open JDK y Oracle JDK. Oracle JDK requiere licencia y Open JDK es libre, por lo que suelo instalar Open JDK.
+
+Se puede descargar desde la web para tener la ultima version: jdk.java.net/
+Para descargar desde terminal: sudo apt install default-jdk
+
+
+
+
+
+
+                             5.3. BASES DE DATOS
+                             -------------------                             
+          
+                             ~~~ 5.3.1. MySQL ~~~                              
+                             
+Para poder gestionar una base de datos MySQL podemos usar muchos gestores de bbdd diferentes. Yo uso MariaDB ya que es fácil de manejar, libre, y se usa por terminal.
+
+Tenemos que instalar el servidor en el ordenador donde guardaremos la bbdd, y el cliente desde todos los ordenadores desde los que accederemos.
+El ordenador del servidor tambien puede ser un cliente.
+
+En la terminal escribimos: sudo apt install mariadb-server mariadb-client
+
+Existe un archivo de configuración ubicado en /etc/mysql/my.cnf, donde podemos cambiar, entre otros parametros, el puerto del servidor.
+
+Para poder trabajar con la bbdd necesitamos un usuario:
+
+    1. Primero accedemos a mariadb escribiendo en terminal mariadb o mysql
+    2. Cuando el prompt cambie a MariaDB >. Escribimos:
+           
+           CREATE USER 'usuario'@'servidor' IDENTIFIED BY 'password';
+    
+    3. En servidor ponemos localhost si es un usuario local y password la podemos dejar en blanco si no queremos contraseña.
+    4. GRANT ALL PRIVILEGES ON *.* TO 'nombre_usuario'@'servidor';
+    5. Ya tenemos permisos sobre todas las bbdd con el nuevo usuario. 
+                                                             
+                               
+                               
+                               
+                               
+                               
+                               5.4. UTILIDADES
                                --------------- 
 
-                              ~~~ 5.3.1. Fzf ~~~
+                              ~~~ 5.4.1. Fzf ~~~
                              
 Fzf es una utilidad que permite buscar archivos en todos los directorios del sistema                        
 
 Primero tenemos que escribir fzf en la terminal, y luego escribimos el archivo que queremos buscar.
 
 Fzf busca en todas las ubicaciones inferiores a donde lanzamos el comando. Para buscar en todo el sistema tenemos que lanzarlo desde /.                              
+
+
+
+                             ~~~ 5.4.2. Alien ~~~
+
+Alien es una utilidad que nos permite convertir paquetes entre diferentes sistemas de paquetería, por ejemplo convertir de .rpm a .deb
+
+Debemos ejecutar en terminal:
+    
+    alien -flag paquete_original
+    
+Donde flag puede ser:
+    
+    -r si queremos obtener un RPM
+    -d si queremos obtener un DEB
+    -t si queremos obtener un TAR.GZ
+
+
+
+
+
+                                 
++----------------------------------------------------------------------------+
+|                           7. PROBLEMAS COMUNES                             |
++----------------------------------------------------------------------------+
+
+
+
+Nota: en esta sección voy a agregar los problemas que he ido teniendo en los sistemas linux que he utilizado.
+
+
+
+                    7.1. CONTRASEÑA DEL DEPOSITO DE CLAVES
+                    --------------------------------------
+                    
+Algunos sistemas como Debian traen configurado por defecto un deposito de claves, seahorse en este caso.
+
+Aunque desinstalemos la aplicacion nos va a seguir pidiendo la contraseña para acceder a ciertos programas.
+
+Lo que tenemos que hacer es instalar nuevamente seahorse, modificar la contraseña del deposito y poner una contraseña en blanco. Luego ya podemos desinstalar el deposito de claves y no volvera a pedir la contraseña.
+
+                                                      
+
 
 
                                                             
@@ -509,7 +639,7 @@ Fzf busca en todas las ubicaciones inferiores a donde lanzamos el comando. Para 
 
 
 
-Nota: En esta seccion voy a agregar la configuración y personalización que tengo en mi equipo. 
+Nota: en esta seccion voy a agregar la configuración y personalización que tengo en mi equipo. 
 
 
              
@@ -532,7 +662,7 @@ Tema de 3 bits (8 colores) que uso para la terminal:
   | WHITE   - #FFFFFF -     231     |
   +---------------------------------+
   
-El codigo bash sirve para cambiar los colores de la terminal, ya que no acepta valores hexadecimales. Ver seccion 5.2. para mas información.
+El codigo bash sirve para cambiar los colores de la terminal, ya que no acepta valores hexadecimales. Ver seccion 8.2. para mas información.
 La terminal solo muestra 16 colores diferentes por defecto.
 Tambien podemos cambiar los temas desde la configuración.
 
@@ -545,6 +675,20 @@ Por ejemplo, en Gnome, disponemos de la web gnome-look donde hay diferentes tema
 
 Hay una serie de directorios comunes en la mayoria de distribuciones orientados a la personalización, como .themes y .icons donde podremos guardar temas e iconos respectivamente.
 Los temas e iconos se suelen descargar de webs orientadas a ello.
+
+
+
+             ~~~ 8.1.3. Cambiar el tema de una aplicacion GTK ~~~ 
+
+1. Buscar el .desktop de la aplicacion en /usr/share/applications
+2. Modificarlo, y en el parametro exec agregar el tema deseado
+3: Ejemplo:
+   
+       Antes: Exec=codeblocks %F
+       Ahora: Exec=env GTK_THEME=Adwaita codeblocks %F
+
+
+
 
 
 
@@ -562,20 +706,6 @@ Ejemplo de mi prompt:
 export PS1="[\A]\[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;226m\]\u\[$(tput sgr0)\    ]\[\033[38;5;m\]:\[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;051m\]\w\[$(tput sgr0)    \]\[\033[38;5;010m\]\\$\[$(tput sgr0)\]"
 
 Ademas, si ponemos algun comando en el archivo .bashrc, este se ejecutara al lanzar una nueva instancia de terminal. Por ejemplo, si ponemos 'echo hola', la terminal imprimira 'hola' cada vez que se ejecute.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
