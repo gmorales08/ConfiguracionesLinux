@@ -6,66 +6,105 @@
 | |_|  |_|\__,_|_| |_|\__,_|\__,_|_|  \__,_|\___| |_____|_|_| |_|\__,_/_/\_\ |
 |                                                                            |
 +============================================================================+
-                        
+                                                                              
 
-                        
-                        -----------------------------
-                        
+                                                                              
+                        -----------------------------                         
+                                                                              
                           Manual de Linux en español                          
-                        
-                        Realizado por Gabriel Morales
-                        
-                        -----------------------------
-                        
-                        Github: github.com/gmorales08
-                        
-                         Contacto: 888.gmd@gmail.com
-                         
-                        -----------------------------
-                             
-                             Ver 1.0: 22-04-2022
-                             
-                        -----------------------------
-
-
-
+                                                                              
+                        Realizado por Gabriel Morales                         
+                                                                              
+                        -----------------------------                         
+                                                                              
+                        Github: github.com/gmorales08                         
+                                                                              
+                         Contacto: 888.gmd@gmail.com                          
+                                                                              
+                        -----------------------------                         
+                                                                              
+                             Ver 1.0: 22-04-2022                              
+                                                                              
+                        -----------------------------                         
+                                                                              
+                                                                              
+                                                                              
 Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, procedimientos y configuraciones que vaya realizando en mi sistema Linux. Actualmente uso Debian 11, pero la guia debería servir para cualquier distribución, salvando algunas diferencias puntuales.
-
-
-
+                                                                              
+                                                                              
+                                                                              
 +----------------------------------------------------------------------------+
 |                                  INDICE                                    |
 +----------------------------------------------------------------------------+
 
-1. GENERALIDADES DE LINUX
-   
-   1.1. Directorios
-   
-   1.2. Archivos
-        1.2.1. Ficheros importantes
+
+                                                                              
+1. GENERALIDADES DE LINUX                                                     
+                                                                              
+   1.1. Directorios                                                           
+                                                                              
+   1.2. Archivos                                                              
+        1.2.1. Ficheros importantes                                           
                1.2.1.1 /etc/sudoers
+               1.2.1.2 ~/.bashrc                                           
         1.2.2. Como crear un acceso directo
-        
-2. DISPOSITIVOS HARDWARE
+        1.2.3. Enlaces simbólicos
+        1.2.4. Compresion / descompresion de archivos                             
+
+2. SERVICIOS Y PROCESOS
    
-   2.1. Medios extraibles
-        2.1.1. Error de solo lectura
-   2.2. Drivers
-        2.2.2. Drivers conocidos
+   2.1. Servicios
+        2.1.1. Control de servicios
+                                                                              
+3. DISPOSITIVOS HARDWARE                                                      
+                                                                              
+   3.1. Medios extraibles                                                     
+        3.1.1. Error de solo lectura                                          
+   
+   3.2. Drivers                                                               
+        3.2.2. Drivers conocidos                                              
+                                                                              
+4. PAQUETERIA                                                                 
+   
+   4.1. Gestores de paquetería
+        4.1.1. Apt
+        4.1.2. Dpkg
+        
+   4.2. Fuentes de software
+   
+   
+5. APLICACIONES Y UTILIDADES
 
+    5.1. Editores de texto / IDEs
+         5.1.1. Vim
+         
+    5.2. Programacion
+         5.2.1. Git
+         
+    5.3. Utilidades
+         5.3.1. Fzf
+   
+8. PERSONALIZACION
+   
+   8.1. Temas
+        8.1.1. Tema de la terminal
+        8.1.2. Tema del entorno grafico y de los iconos
+   
+   8.2. Terminal
+   
 
-
+                                                   
 +----------------------------------------------------------------------------+
-|                        1. GENERALIDADES DE LINUX                           |
+|                         1. GENERALIDADES DE LINUX                          |
 +----------------------------------------------------------------------------+
 
 
 
-                             1.1. DIRECTORIOS                                      
-                             ----------------
+                              1.1. DIRECTORIOS                                 
+                              ----------------                                 
 
-/usr/        : Utilidades y aplicaciones multi-usuario
-/usr/bin/    : Ejecutables de usuario
+/usr/        : Utilidades y aplicaciones multi-usuario                        
+/usr/bin/    : Ejecutables de usuario                                         
 /usr/sbin/   : Archivos binarios del sistema
 /usr/lib/    : Librerias esenciales y módulos del kernel
 /usr/share/  : Archivos compartidos (iconos, temas, configuracion, etc.)
@@ -93,19 +132,34 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
 
 
 
-                              1.2. ARCHIVOS                                                                       
-                              -------------
+
+
+
+                                1.2. ARCHIVOS                                    
+                                -------------                                   
  
-                     ~~~ 1.2.1. Ficheros importantes ~~~                  
+                     ~~~ 1.2.1. Ficheros importantes ~~~                      
                  
-                                /etc/sudoers
+                                 /etc/sudoers
                                 
 Sirve para dar permisos de sudo a los usuarios, es decir, permite ejecutar la orden sudo
 Para ello hay que editar el fichero y agregar la linea:
 
 nombre_usuario ALL=(ALL:ALL) ALL                                             
 
-                                          
+
+                                  ~/.bashrc
+                                  
+Fichero de configuración de bash. Podemos agregar configuracion personalizada.
+
+Alias: para crear un alias debemos escribir
+    
+    alias nombre_alias='comando_terminal'
+                                 
+Para cambiar el prompt ver seccion 8.2 Terminal
+
+Si escribimos un comando de terminal en .bashrc, este se ejecutara al iniciar una nueva instancia de terminal.
+ 
  
                               
                  ~~~ 1.2.2. Como crear un acceso directo ~~~                  
@@ -143,20 +197,88 @@ Los accesos directos se ubican en /usr/share/applications/
 Si hemos instalado una aplicación en /opt/ y no vemos su acceso desde el lanzador de aplicaciones, seguramente sea porque no tiene una entrada .desktop en este directorio.
 
 
-                                 
+                               
+                      ~~~ 1.2.3. Enlaces simbolicos ~~~ 
+
+Los enlaces simbolicos son accesos directos a directorios. A diferencia de los .desktop mencionados en la entrada anterior, los enlaces simbolicos son, como su nombre indica, simbolicos, por lo que todo lo que modifiquemos en ellos se modifica en el original. Los .desktop actuan como lanzadores.
+
+Para crear un enlace simbolico ejecutaremos en terminal:
+    
+    ln -s origen destino
+
+
+                                  
+            ~~~ 1.2.4. Compresion / Descompresion de archivos ~~~ 
+
+Formatos más utilizados:
+
+    TAR:     tar -cvf archivo.tar dir_a_comprimir      (comprimir)
+             tar -xvf archivo.tar                      (descomprimir)
+             tar -tf  archivo.tar                      (ver contenido)
+            
+    GZ:      gzip -9  fichero.gz                       (comprimir)
+             gzip -d  fichero.gz                       (descomprimir)
+            
+    TAR.GZ:  tar -czfv archivo.tar.gz ficheros         (comprimir)
+             tar -xzvf archivo.tar.gz                  (descomprimir)
+             tar -tzf  archivo.tar.gz                  (ver contenido)
+             
+    BZ2:
+             bzip     fichero                          (comprimir)
+             bzip2 -d fichero.bz2                      (descomprimir)
+             
+    TAR.BZ2: tar -c ficheros | bzip2 > archivo.tar.bz2 (comprimir)
+             bzip2 -dc archivo.tar.bz2 | tar -xv       (descomprimir)
+             bzip2 -dc archivo.tar.bz2 | tar -t        (ver contenido)
+             
+    ZIP:     zip      archivo.zip ficheros             (comprimir)
+             unzip    archivo.zip                      (descomprimir)
+             unzip -v archivo.zip                      (ver contenido)
+             
+    RAR:
+             rar   -a archivo.rar ficheros             (comprimir)
+             unrar -x archivo.rar                      (descomprimir) 
+             unrar -v archivo.rar                      (ver contenido)
+             
+                       
++----------------------------------------------------------------------------+
+|                          2. SERVICIOS Y PROCESOS                           |
++----------------------------------------------------------------------------+
+
+
+
+                                2.1. SERVICIOS                                
+                                --------------                               
+                             
+                      ~~~ 2.1.1. Control de servicios ~~~                     
+
+Si nuestro gestor de servicios es systemd, podemos controlar los sercios con el comando systemctl
+
+           status srv     # Muestra informacion sobre el servicio
+           start srv      # Inicia el servicio
+           restart srv    # Reinicia el servicio
+systemctl  reload srv     # Recarga la informacion de un servicio sin reiniciarlo
+           stop srv       # Detiene el servicio
+           enable srv     # Habilita el servicio para que cargue en el arranque
+           disable srv    # Deshabilita el servicio para que no cargue en el arranque
+           
+Nota: srv seria el nombre del servicio
+
+
+
 
 
                             
 +----------------------------------------------------------------------------+
-|                        2. DISPOSITIVOS HARDWARE                            |
+|                          3. DISPOSITIVOS HARDWARE                          |
 +----------------------------------------------------------------------------+
 
 
 
-                         2.1. MEDIOS EXTRAIBLES                                       
-                         ----------------------                               
+                            3.1. MEDIOS EXTRAIBLES                               
+                            ----------------------                               
 
-                  ~~~ 2.1.1. Error de solo lectura ~~~                        
+                     ~~~ 3.1.1. Error de solo lectura ~~~                        
 
 Si al conectar un disco nos sale una alerta de solo lectura, o no nos permite escribir en el, debemos ejecutar los siguientes comandos en terminal:
 
@@ -168,16 +290,282 @@ sudo mount -o rw /dev/sd*  #para montarlo nuevamente en modo lectura/escritura
 
 
 
-                              2.2. DRIVERS               
-                              ------------                                                     
 
-                    ~~~ 2.2.2. Drivers conocidos ~~~                                                           
+
+
+                                 3.2. DRIVERS                              
+                                 ------------                                    
+
+                       ~~~ 3.2.2. Drivers conocidos ~~~                          
 
 Controladora de red inalambrica Realtek
 
 Driver: RTL8821CE 802.11ac PCIe Wireless Network Adapter
 Instalacion: apt install firmware-realtek firmware-ti-connectivity
 Probado en: Debian 11                                          
+
+
+
+
+
+                                                 
++----------------------------------------------------------------------------+
+|                               4. PAQUETERIA                                |
++----------------------------------------------------------------------------+
+
+
+
+                          4.1. GESTORES DE PAQUETERIA                          
+                          ---------------------------                            
+
+                              ~~~ 4.1.1. Apt ~~~              
+                       
+Gestor de paquetes utilizado en distribuciones basadas en Debian                  
+
+Podemos gestionar los paquetes desde terminal, con permisos de superusuario:
+
+    apt update         #Actualiza el software de los repositorios
+    apt upgrade        #Actualiza los paquetes ya instalados en el ordenador
+    apt install x      #Para instalar el paquete x
+    apt remove x       #Para eliminar el paquete x
+    apt autoremove     #Para eliminar dependencias no utilizadas
+    apt list x         #Para listar el paquete x, si esta en los repositorios
+
+Antes de realizar cualquier instalacion es recomendable ejecutar apt update y apt upgrade
+
+Despues de eliminar algun programa, es recomendable realizar apt autoremove para borrar dependencias
+
+Para buscar un paquete se pueden usar expresiones regulares, de tal manera que si no sabemos el nombre exacto del paquete podemos escribir apt list *nombre* y listara todos los paquetes que contengan 'nombre'
+
+
+
+                              ~~~ 4.1.2. Dpkg ~~~                              
+                             
+Dpkg es un gestor de paquetes que se usa con paqueteria .deb, utilizada principalmente por distribuciones basadas en Debian.
+
+En sistemas basados en Debian se suele usar tanto apt como dpkg
+
+Comandos basicos:
+    
+    dpkg -l                 #Lista todos los paquetes instalados
+    dpkg -l nombre_paquete  #Lista el paquete 
+    dpkg -i pq.deb          #Instala el paquete
+    dpkg -r nombre_paquete  #Elimina el paquete, manteniendo su configuracion
+    dpkg -P pq.deb          #Elimina el paquete, borrando su configuracion
+
+
+
+                               
+                               
+                                 
++----------------------------------------------------------------------------+
+|                        5. APLICACIONES Y UTILIDADES                        |
++----------------------------------------------------------------------------+
+
+
+                        
+                        5.1. EDITORES DE TEXTO / IDEs
+                        -----------------------------  
+
+                              ~~~ 5.1.1. Vim ~~~
+
+Vim es un editor de texto que se ejecuta en terminal.
+Esta pensado para utilizarlo solo con el teclado, sin usar el raton.
+
+Tiene un archivo de configuración .vimrc ubicado en el directorio home.
+Si .vimrc no esta creado, se puede crear para agregar la configuracion.
+
+Tambien hay una carpeta .vim ubicada en home, donde se guarda mas configuración como los plugins.
+Los plugins se gestion con un gestor de plugins como, por ejemplo, vim-plug.
+
+
+
+                              5.2. PROGRAMACION
+                              ----------------- 
+                              
+                              ~~~ 5.2.1. Git ~~~
+                              
+Git es un software de control de versiones, util para sincronizar nuestros proyectos con github y trabajar en equipo desde diferentes ordenadores.
+
+Git gestiona los archivos en tres areas de trabajo:
+    -Working dir: Espacio de trabajo local, los archivos no estan sincronizados con github
+    -Staging: los archivos que se agregan aqui seran los que se sincronizen con el repositorio de github
+    -Repositorio: tras hacer un commit guardamos los cambios para subirlos al repositorio
+    
+           +-------------+     +-------------+     +-------------+                
+           | WORKING DIR |     | STAGING     |     | REPOSITORIO |
+           +-------------+     +-------------+     +-------------+
+                    <----checkout-------------------------- 
+                    ---------stage---->                     
+                                        --------commit---->     
+    
+    
+                          --Configuracion inicial--
+
+Si es la primera vez que usamos git en el equipo, hay que realizar una configuracion inicial desde terminal:
+
+    git config --global user.name "nombre"  # Agregamos un nombre
+    git config --global user.email "email"  # y email para identificarnos        
+    
+Ahora vamos a generar una clave ssh para vincular el ordenador con github. Escribimos en terminal:
+
+    ssh-keygen
+    
+    # Nos pregunta donde la queremos guardar
+    # Por defecto se guarda en /home/usuario/.ssh/id_rsa.pub
+    # Nos pide una contraseña de recuperacion
+    # Copiamos la clave y la pegamos en nuestra cuenta de GitHub
+    
+Ya tenemos la cuenta de GitHub vinculada al ordenador
+
+
+                         --Crear un repositorio git--
+                         
+Para crear un repositorio desde cero:
+
+1. Creamos el repositorio desde GitHub. Y en la pestaña Code, pulsamos el boton code y copiamos el codigo ssh.
+2. En el ordenador nos ubicamos donde queramos ubicar el proyecto, desde terminal, y escribimos:
+    
+    git clone ssh_copiado
+
+3. Ya tenemos el repositorio ubicado en nuestro equipo y vinculado a GitHub.
+4. Podemos crear archivos nuevos dentro, o mover los que queramos subir.
+
+
+Otra forma de hacerlo es creando primero el directorio de trabajo git:
+
+1. git init  # Encima del directorio que queramos subir
+2. Agregar los archivos que queramos subir:
+    
+    git add .               # Para agregar todos los ficheros y directorios
+    git add nombre_fichero  # Para agregar un archivo concreto         
+                               
+3. Realizar el commit:
+
+    git commit -m 'comentario'
+    
+4. Vincular el proyecto a GitHub:
+
+    git remote add origin ssh_copiado  # Al igual que anterior opcion hay que generar y copiar un ssh
+    
+5. Subir el proyecto:
+
+    git push -u origin master
+    
+    ! IMPORTANTE: el repositorio de github debe estar vacio, por lo que si los has creado con un README o una licencia, debes borrarlas antes de subir el proyecto.
+    
+
+                             --Comandos comunes--                
+
+    git status  # Comprueba el estado del directorio git
+    
+    -Agregar cambios locales y subirlos-
+    
+    git add .
+    git commit -m 'comentario'
+    git push origin master
+    
+    
+    -Descargar el proyecto de GitHub al directorio local-
+    
+    Util si trabajamos en equipo y un compañero a realizado cambios
+    
+    git pull nombre_repositorio
+    
+    
+    -Otros comandos-
+    
+    git log                  # Muestra todos los commits
+    git reset --hard HEAD~1  # Deshace el ultimo commit no publicado
+    git revert codigo_commit # Deshace el commit indicado (ver codigo con log)
+   
+                               
+                                --Gitignore-- 
+                                         
+Todos los archivos especificados dentro del documento .gitignore no se agregaran al hacer git add .
+
+Para hacerse una idea de que documentos debemos agregar dependiendo del tipo de proyecto podemos visitar el repositorio https://github.com/github/gitignore
+
+Es importante agregar el .gitignore a git (git add .gitignore) para que otras personas sepan que archivos estan ocultos                                 
+                               
+                               
+                               
+                               5.3. UTILIDADES
+                               --------------- 
+
+                              ~~~ 5.3.1. Fzf ~~~
+                             
+Fzf es una utilidad que permite buscar archivos en todos los directorios del sistema                        
+
+Primero tenemos que escribir fzf en la terminal, y luego escribimos el archivo que queremos buscar.
+
+Fzf busca en todas las ubicaciones inferiores a donde lanzamos el comando. Para buscar en todo el sistema tenemos que lanzarlo desde /.                              
+
+
+                                                            
++----------------------------------------------------------------------------+
+|                             8. PERSONALIZACION                             |
++----------------------------------------------------------------------------+
+
+
+
+Nota: En esta seccion voy a agregar la configuración y personalización que tengo en mi equipo. 
+
+
+             
+                                  8.1. TEMAS
+                                  ----------    
+                                  
+                        ~~~ 8.1.1. Tema de la terminal ~~~               
+                                             
+Tema de 3 bits (8 colores) que uso para la terminal:
+
+  +--COLOR------HEX-----CODIGO_BASH-+
+  |                                 |
+  | BLACK   - #000000 -     016     |
+  | BLUE    - #0000FF -     021     |
+  | GREEN   - #00FF00 -     046     |
+  | AQUA    - #00FFFF -     051     |
+  | RED     - #FF0000 -     196     |
+  | FUCHSIA - #FF00FF -     201     |
+  | YELLOW  - #FFFF00 -     226     |
+  | WHITE   - #FFFFFF -     231     |
+  +---------------------------------+
+  
+El codigo bash sirve para cambiar los colores de la terminal, ya que no acepta valores hexadecimales. Ver seccion 5.2. para mas información.
+La terminal solo muestra 16 colores diferentes por defecto.
+Tambien podemos cambiar los temas desde la configuración.
+
+
+
+           ~~~ 8.1.2. Tema del entorno grafico y de los iconos ~~~            
+                     
+Dependiendo del entorno gráfico que estemos utilizando (Gnome, KDE, etc.) se personalizará de diferente manera.
+Por ejemplo, en Gnome, disponemos de la web gnome-look donde hay diferentes temas y opciones de personalización.
+
+Hay una serie de directorios comunes en la mayoria de distribuciones orientados a la personalización, como .themes y .icons donde podremos guardar temas e iconos respectivamente.
+Los temas e iconos se suelen descargar de webs orientadas a ello.
+
+
+
+                                8.2. TERMINAL
+                                -------------
+
+El archivo de configuración de la terminal es .bashrc y se encuentra en el directorio home de cada usuario. (Ver 1.2.1. Ficheros importantes).
+
+Para cambiar el prompt que se muestra en la terminal lo hacemos con el comando export, y a continuacion se pueden poner las variables que deseemos.
+
+Existen webs para generar el codigo del prompt, que deberemos copiar y pegar al final de .bashrc
+
+Ejemplo de mi prompt:
+
+export PS1="[\A]\[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;226m\]\u\[$(tput sgr0)\    ]\[\033[38;5;m\]:\[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;051m\]\w\[$(tput sgr0)    \]\[\033[38;5;010m\]\\$\[$(tput sgr0)\]"
+
+Ademas, si ponemos algun comando en el archivo .bashrc, este se ejecutara al lanzar una nueva instancia de terminal. Por ejemplo, si ponemos 'echo hola', la terminal imprimira 'hola' cada vez que se ejecute.
+
+
+
+
 
 
 

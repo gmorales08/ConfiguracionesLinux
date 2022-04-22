@@ -127,3 +127,4 @@ export PS1="[\A]\[$(tput sgr0)\]\[$(tput bold)\]\[\033[38;5;226m\]\u\[$(tput sgr
 # COMANDOS QUE SE EJECUTAN AL INICIAR LA TERMINAL
 
 neofetch
+
