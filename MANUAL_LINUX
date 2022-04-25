@@ -47,7 +47,8 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
         1.2.1. Ficheros importantes                                           
                1.2.1.1 /etc/sudoers
                1.2.1.2 ~/.bashrc   
-               1.2.1.3 /etc/apt/sources.list                                  
+               1.2.1.3 /etc/apt/sources.list  
+               1.2.1.4 /etc/fstab                                
         1.2.2. Como crear un acceso directo
         1.2.3. Enlaces simbólicos
         1.2.4. Compresion / descompresion de archivos                             
@@ -64,7 +65,10 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
    
    3.2. Drivers
         3.2.1. Gestión de drivers                                                
-        3.2.2. Drivers conocidos                                              
+        3.2.2. Drivers conocidos
+        
+   3.3. Dispositivos de almacenamiento
+        3.3.1. Montar y desmontar un dispositivo                  
                                                                               
 4. PAQUETERIA                                                                 
    
@@ -93,6 +97,8 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
 7. PROBLEMAS COMUNES
 
    7.1. Contraseña del deposito de claves
+   7.2. Recuperar el grub
+   7.3. Error en el arranque: A start job is running for /dev/...
    
 8. PERSONALIZACION
    
@@ -183,9 +189,14 @@ Podemos agregar o eliminar repositorios, asi como determinar la rama del reposit
 Ejemplo: deb http://deb.debian.org/debian/ bullseye main contrib
 
 Cuando realizamos apt update, el sistema busca software de estos repositorios.
+
+
+                                  /etc/fstab
+                                  
+Este archivo contiene la información de los dispositivos que se montan al arrancar el ordenador. Para más información sobre montaje de dispositivos vease 3.3.1. Montar y desmontar un dispositivo.                                  
                              
                              
-                              
+                             
                  ~~~ 1.2.2. Como crear un acceso directo ~~~                  
 
 Para crear un acceso directo de cualquier aplicacion  hay que crear un archivo .desktop y agregarle:
@@ -350,7 +361,63 @@ Probado en: Debian 11
 
 
 
-                                                 
+               
+                     3.3. DISPOSITIVOS DE ALMACENAMIENTO
+                     ----------------------------------- 
+                                 
+               ~~~ 3.3.1. Montar y desmontar un dispositivo ~~~           
+
+Para poder utilizar un dispositivo de almacenamiento en Linux, hay que montarlo.
+Muchos sistemas montan los discos automaticamente, pero en ocasiones hay que hacerlo manualmente.
+El directorio de montaje es /media/nombre_usuario/ y dentro de este directorio se encuentran los dispositivos montados actualmente.
+
+Para poder ver los dispositivos del equipo, escribimos en terminal:
+    
+    sudo fdisk -l
+
+
+                           --Montar un dipositivo--                   
+
+Escribimos en terminal: 
+    
+    1. fdisk -l            #para obtener la información del dispositivo
+    2. mount -t sistema_archivos /dev/dispostivo /media/carpeta_montaje
+       
+       Ejemplo: mount -t ext4 /dev/sdb1 /media/gabriel/
+       
+    Podemos añadir permisos de lectura y escritura a un usuario con el parametro -o rw,usuario:
+    
+    3. mount -t sistem_archivos -o rw,usuario /dev/dispositivo /media/montaje
+    
+    
+                   --Montar un dipositivo automaticamente--
+                   
+Si queremos que el dispositivo se monte cuando arrancaquemos el sistema, hay que editar el fichero /etc/fstab.
+
+Al final del fichero escribimos:
+
+    dispositivo    punto_montaje    sistema_ficheros    parametros    0
+    
+    Ejemplo: /dev/sda4    /media/gabriel    ext4    rw,auto    0
+    
+    Notese que entre cada 'atributo' hay una tabulación.
+
+Si queremos que tenga los parametros predeterminados escribimos "defaults".
+
+
+                         --Desmontar un dipositivo--
+
+Para desmontar un dispositivo escribimos en terminal:
+
+    umount /media/punto_montaje
+    
+    Ejemplo: umount /media/USB 
+
+ 
+               
+  
+                                                   
+                                                                                  
 +----------------------------------------------------------------------------+
 |                               4. PAQUETERIA                                |
 +----------------------------------------------------------------------------+
@@ -632,7 +699,56 @@ Lo que tenemos que hacer es instalar nuevamente seahorse, modificar la contrase�
 
 
 
-                                                            
+
+                            7.2. RECUPERAR EL GRUB                
+                            ----------------------
+                            
+Si en el mismo ordenador tenemos mas de un sistema operativo instalado, puede lleguemos a tener problemas con el GRUB o gestor de arranque.
+Si al arrancar el ordenador nos lleva a una pantalla negra donde pone:
+
+    grub>
+    
+tenemos que escribir lo siguiente:
+    
+    1. ls                         # Para listar todas las particiones de los sistemas instalados en el ordenador
+                                  # Tenemos que localizar la particion que queremos usar, para ello escribimos:
+    2. ls (disco,particion)       # sobre cada particion hasta localizar la que devuelva el sistema de ficheros que buscamos (ext3, ntfs, etc.)
+                                  # Ej: ls (hd0,gpt1)
+                                  # Tambien nos podemos guiar por el tamaño de la partición.
+                                  # A continuación escribimos los siguientes comandos sobre la partición que queremos arrancar:
+    3. set boot=(disco,particion)
+    4. set prefix=(disco,particion)/boot/grub
+    5. insmod normal
+    6. normal
+    
+Tras seguir estos pasos, y si la partición seleccionada es correcta, debería acceder al menu grub desde el que podemos seleccionar el sistema que queramos iniciar.
+    
+                   
+                            
+
+
+
+        7.3. ERROR EN EL ARRANQUE: A START JOB IS RUNNING FOR /DEV/...
+        --------------------------------------------------------------
+
+Si al cargar el sistema operativo, sale un mensaje en rojo indicando: "A start job is runnig for /dev/..." y aparece una cuenta regresiva, es un problema con la partición swap.
+
+Para solucionarlo hay que seguir los siguientes pasos:
+
+    1. Esperar a que cargue el sistema y abrir un administrador de discos.
+    2. Localizar y copiar el UUID de la partición swap del sistema.
+    
+       Ejemplo de UUID: dc336e15-cb69-45e0-b038-9e469cc954e7 
+       
+    3. Abrir una terminal y editar el fichero /etc/fstab
+    4. En la linea que identifica a la partición swap, cambiar el parametro UUID por el copiado.
+    5. Guardar cambios y reiniciar el sistema.
+   
+    
+    
+    
+    
+      
 +----------------------------------------------------------------------------+
 |                             8. PERSONALIZACION                             |
 +----------------------------------------------------------------------------+
