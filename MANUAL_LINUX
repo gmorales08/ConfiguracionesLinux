@@ -87,6 +87,11 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
          
     5.2. Programacion
          5.2.1. Git
+                5.2.1.1. Configuración inicial
+                5.2.1.2. Crear un repositorio
+                5.2.1.3. Comandos comunes
+                5.2.1.4. Gitignore
+                5.2.1.5. Submodulos
          5.2.2. Java
          
     5.3. Bases de datos
@@ -676,7 +681,24 @@ Todos los archivos especificados dentro del documento .gitignore no se agregaran
 Para hacerse una idea de que documentos debemos agregar dependiendo del tipo de proyecto podemos visitar el repositorio https://github.com/github/gitignore
 
 Es importante agregar el .gitignore a git (git add .gitignore) para que otras personas sepan que archivos estan ocultos                                 
-                               
+
+
+                                --Submodulos--
+              
+Si queremos crear un repositorio nuevo dentro de un repositorio ya creado, tenemos que crear lo que se conoce como submódulo.
+
+Para hacerlo, nos ubicamos dentro del repositorio principal en la terminal y escribimos:
+
+    git submodule add codigo_repositorio    # codigo_repositorio es el codigo ssh del repositorio.
+    
+Ya tenemos el directorio del submodulo agregada, y podemos trabajar con el submodulo.
+
+Si queremos clonar un repositorio que contenga submodulos, escribimos en terminal:
+    
+    git clone codigo_repositorio    # Igual que un repositorio normal
+    git submodule init              # Detecta todos los submodulos
+    git submodule update            # Sincroniza los submodulos
+    
                                
                                
                              ~~~ 5.2.2. Java ~~~

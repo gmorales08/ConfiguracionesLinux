@@ -1,0 +1,3 @@
+[submodule "ManualLinux"]
+	path = ManualLinux
+	url = git@github.com:gmorales08/ManualLinux.git
