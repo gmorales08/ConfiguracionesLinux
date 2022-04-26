@@ -68,7 +68,8 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
         3.2.2. Drivers conocidos
         
    3.3. Dispositivos de almacenamiento
-        3.3.1. Montar y desmontar un dispositivo                  
+        3.3.1. Montar y desmontar un dispositivo
+        3.3.2. Dual boot                  
                                                                               
 4. PAQUETERIA                                                                 
    
@@ -82,6 +83,7 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
 
     5.1. Editores de texto / IDEs
          5.1.1. Vim
+                5.1.1.1. Comandos de vim
          
     5.2. Programacion
          5.2.1. Git
@@ -93,6 +95,13 @@ Esta es una guia de referencia para uso personal. Voy a anotar todas las dudas, 
     5.4. Utilidades
          5.4.1. Fzf
          5.4.2. Alien
+         
+6. PROTOCOLOS
+   
+   6.1. FTP
+        6.1.1. Servidor Linux
+        6.1.2. Cliente Windows / Linux
+        6.1.3. Comandos de terminal
          
 7. PROBLEMAS COMUNES
 
@@ -415,8 +424,25 @@ Para desmontar un dispositivo escribimos en terminal:
 
  
                
-  
+                           ~~~ 3.3.2. Dual boot ~~~
+                           
+Si tenemos instalados varios sistemas operativos en el ordenador tenemos que configurar grub.
+Grub es una utilidad que permite seleccionar entre los diferentes sistemas operativos que tengamos instalados al encender el ordenador.
+Para instalarlo tenemos que abrir una terminal y escribir:
+
+    sudo grub-install
+    
+Y el sistema configurará automaticamente grub. Al reiniciar el equipo veremos aplicados los cambios.
+Cuando configuramos grub, se crea una carpeta con el nombre de nuestro sistema en: /boot/efi/EFI/
+
+Si queremos editar las opciones de arranque, o cambiar el aspecto de grub, podemos usar la utilidad grub customizer. Para instalarla escribimos en terminal: 
+
+    sudo apt install                         
+                               
+         
                                                    
+                        
+                        
                                                                                   
 +----------------------------------------------------------------------------+
 |                               4. PAQUETERIA                                |
@@ -486,6 +512,57 @@ Si .vimrc no esta creado, se puede crear para agregar la configuracion.
 
 Tambien hay una carpeta .vim ubicada en home, donde se guarda mas configuración como los plugins.
 Los plugins se gestion con un gestor de plugins como, por ejemplo, vim-plug.
+
+
+                             --Comandos de vim--
+                        
++--------------BUFFERS--------------+------------------PESTANAS------------------+
+|                                   |                                            |
+| :ls -> lista los buffers          | :tabs      -> lista las pestanas           |
+| :ba -> abre todos los buffers     |                                            |
+|                                   | :tabnew n  -> crea el fichero n            |
+| :bn -> ir al siguiente            | :tabedit n -> abre el fichero n            |
+| :bp -> ir al anterior             |                                            | 
+| :bl -> ultimo buffer              | :tab ball  -> los buffers se abren en p.   |
+| :bf -> primer buffer              | :tab split -> duplica la ventana en una p. |
+| :bn -> va al buffer n             |                                            |
+|                                   | gt  -> pestana siguiente                   |
+| :bd -> cierra el buffer actual    | gT  -> pestana anterior                    |
+| :bn -> cierra el buffer n         | ngt -> pestana n                           |
++-----------------------------------+--------------------------------------------+
+
++---------------------VENTANAS-----------------------+-----FUNCIONES BASICAS-----+
+|                                                    |                           |
+| Ctrl+wv -> ventana vertical                        | y -> copiar               |
+| Ctrl+ws -> ventana horizontal                      | d -> cortar               |
+|                                                    | p -> pegar                |
+| Ctrl+w+(h/j/k/l) -> moverse entre v.               |                           |
+| Ctrl+ww -> moverse a otra v.                       | :below terminal           |
+|                                                    |                           |
+| Ctrl+w> y Ctrl+w< -> dimensionar horizontalmente   |                           |
+| Ctrl+w+ y Ctrl+w- -> dimensionar verticalmente     |                           |
+| Ctrl+w  -> hacer que las v. tengan el mismo tamano |                           |
+| Ctrl+w= -> reinciar dimensiones de las v.          |                           |
+|                                                    |                           |
+| Ctrl+wq -> cerrar la v. donde estamos              |                           |
+|                                                    |                           |
+| :split   -> divide la pantalla horizontalmente     |                           |
+| :vsplit  -> divide la pantalla verticalmente       |                           |
+| :split n -> tambien abr el fichero n               |                           |
++----------------------------------------------------+---------------------------+
+
++-------------------DESPLAZAMIENTO-------------------+
+|                                                    |
+| g -> desplazarse a linea                           |
+| gi -> desplazarse a la ultima palabra editada      |     __     ___    
+|                                                    |     \ \   / (_)_ __ ___
+| L -> mover cursor abajo                            |      \ \ / /| | '_ ` _ \ 
+| M -> mover cursor centro                           |       \ V / | | | | | | |
+| H -> mover cursor arriba                           |        \_/  |_|_| |_| |_|
+|                                                    |
+| Ctrl+e -> mover pantalla abajo                     |
+| Ctrl+y -> mover pantalla arriba                    |
++----------------------------------------------------+
 
 
 
@@ -675,7 +752,176 @@ Donde flag puede ser:
 
 
 
-                                 
+                 
++----------------------------------------------------------------------------+
+|                               6. PROTOCOLOS                                |
++----------------------------------------------------------------------------+
+
+
+                                   
+                                   6.1 FTP                      
+                                   -------
+
+FTP es un protocolo de transferencia de archivos, usado en ordenadores dentro de una misma red.
+
+Al igual que la mayoría de protocolos, se puede configurar entre diferentes sistemas operativos, solo hace falta que estén conectados a la misma red.
+
+
+                        ~~~ 6.1.1. Servidor Linux ~~~
+                        
+1. Lo primero de todo es tener un servicio instalado. Hay varias opciones, yo voy a usar vsftpd. 
+
+Desde terminal se instala con: 
+    
+    sudo apt install vsftpd
+    
+Podemos gestionar el servicio como cualquier otro, con systemctl, si usamos systemd:
+    
+    sudo systemctl start vsftpd
+    sudo systemctl stop vsftpd
+    etc.
+
+
+2. Crear un usuario y directorio para las conexiones FTP:
+
+Por seguridad, se suele crear un usuario especifico para las conexiones FTP. Desde terminal escribimos:
+
+    1. useradd -g ftp nombre_usuario       # Creamos el usuario y lo añadimos al grupo FTP
+    1. useradd -g ftp -m nombre_usuario    # Si queremos carpeta en home añadimos -m 
+    2. passwd nombre_usuario        # Le cambiamos la contraseña
+    
+    Nota: si no creamos un usuario y queremos usar uno existente, hay que añadirlo al grupo ftp. Desde terminal escribimos:
+        
+        sudo usermod -aG ftp nombre_usuario
+    
+Ahora vamos a crear un carpeta para las transferencias FTP:
+
+    Nota: si no creamos la carpeta, los archivos se guardarán en /srv/ftp/
+
+    1. cd /home/nombre_usuario    
+    2. mkdir ftp                  # Podemos poner el nombre que queramos   
+    3. chwon nobody:nogroup /home/nombre_usuario/ftp  # Agregamos permisos de 
+    4. chmod a-w /home/nombre_usuario/ftp             # escritura a todos los usuarios
+    
+Creamos un diretorio que solo se pueda acceder con el usuario ftp:
+    
+    5. mkdir /home/nombre_usuario/ftp/files
+    6. chown nombre_usuario:nombre_usuario /home/nombre_usuario/ftp/files
+    
+    
+3. Enjaular usuarios:
+
+Enjaular usuarios sirve para que los usuarios que accedan por FTP solo puedan acceder a su carpeta home y no a todo el sistema.
+
+Para ello vamos a modificar la configuración. Antes de editar el fichero de configuración, hacemos una copia de seguridad del fichero. Desde terminal escribimos:
+
+    sudo cp /etc/vsftpd.conf /etc/vsftpd.conf_default
+    
+Editamos el fichero /etc/vsftpd.conf y añadimos al final:
+
+    chroot_local_user=YES
+    chroot_list_enable=YES
+    chroot_list_file=/etc/vsftpd.chroot_list
+     
+Creamos el fichero /etc/vsftpd.chroot_list y escribimos dentro nuestro los usuarios que queramos enjaular, con un salto de linea entre cada usuario.
+
+Para aplicar los cambios escribimos en terminal:
+
+    systemctl restart vsftpd
+  
+    
+4. Habilitar conexiones anonimas:
+
+Para habilitar el acceso anonimo escribimos en /etc/vsftpd.conf:
+
+    anonymous_enable=YES
+
+    Nota: este parametro suele estar escrito por defecto y configurado a NO, si es así, simplemente cambiamos el valor a YES
+
+Para acceder como usuario anonimo, tendremos que usar el usuario ftp o anonymous, y no tiene contraseña.
+
+
+6. Otras configuraciones de /etc/vsftpd.conf:
+
+    write_enable=YES    # Permite la escritura en los ficheros
+
+
+5. Otros archivos de configuración:
+    
+    /etc/ftpusers: contiene una lista de los usuarios a los que se deniega el acceso por FTP. El usuario root esta en esta lista por seguridad.
+    
+    /var/log/vsftpd.log: guarda un registo de las conexions establecidas.
+   
+    
+6. Habilitar los puertos para usar el servicio:
+
+Los puertos del protocolo se activan automaticamente, pero si tenemos algún problema podemos habilitarlos manualmente desde terminal:
+
+   sudo ufw allow 20/tcp    # Puerto para transferencia FTP
+   sudo ufw allow 21/tcp    # Puerto para control FTP
+   sudo ufw allow 990/tcp   # Puerto para FTPS
+    
+                    
+
+6.1.2. Cliente Windows / Linux
+
+Podemos conectarnos al servidor FTP de diferentes formas:
+
+    -Desde una aplicación gráfica como Filezilla.
+    -Desde un explorador de archivos o un navegador, escribiendo en el buscador:
+         
+         ftp://ip_servidor
+         
+         o si queremos entrar con un usuario:
+         
+         ftp://usuario.contraseña@servidor
+         
+    -Desde una terminal.
+
+A continuación se explica la conexión por terminal:
+
+1. Tener instalado el servicio ftp. En el caso de Linux se puede hacer desde terminal con:
+    
+    sudo apt install ftp
+    
+2. Escribimos en la terminal:
+
+    ftp ip_servidor
+    
+y nos pedira un nombre de usuario y contraseña
+
+3. Ya estamos conectados al servidor. Para trabajar con archivos se usan los siguientes comandos:
+       
+                           
+                           
+6.1.3. Comandos de terminal
+ 
+    help             # Muestra todos los comandos
+    help comando     # Muestra información sobre un comando 
+    
+    dir / ls         # Muestra los directorios disponibles
+    lcd              # Muestra la ubicación en la maquina local
+    cd directorio    # Para moverse al directorio (remoto)
+    lcd directorio   # Para moverse al directorio (local)                   
+    get fichero      # Descarga el fichero en la maquina local
+    mget f1 f2 f3    # Descargar varios ficheros
+    put fichero      # Sube el fichero local a remoto
+    mput f1 f2 f3    # Sube varios ficheros
+    
+    delete fichero   # Elimina el fichero
+    mdelete f1 f2 f3 # Elimina varios ficheros
+    mkdir directorio # Crea el directorio
+    rmdir directorio # Elimina el directorio
+    quit/exit/bye    # Cierra sesión
+    
+    
+    Nota: los fichero que descarguemos se guardan en el directorio desde el que accedimos al servidor FTP
+ 
+ 
+ 
+ 
+ 
+ 
 +----------------------------------------------------------------------------+
 |                           7. PROBLEMAS COMUNES                             |
 +----------------------------------------------------------------------------+
