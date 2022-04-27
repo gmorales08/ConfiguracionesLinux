@@ -3,14 +3,6 @@
 """"""""""""""""""""""""""""""""
 
 
-""""" TEMAS """""
-
-colorscheme gruvbox
-let g:gruvbox_contrast_dark='hard' "Paleta de colores de gruvbox
-set background=dark "Fondo dark / light
-
-"""""""""""""""""
-
 set number          "numero de linea
 set relativenumber  "numero de linea relativo
 set ruler           "muestra el numero de columna
@@ -25,12 +17,17 @@ set nocompatible       "para quitar la compativilidad con vi
 
 set undofile           "permite deshacer cambios aunque se cierre el programa
 
-set fillchars+=vert:\⋮ "cambia el caracter que separa las ventanas
+set fillchars+=vert:\┊ "cambia el caracter que separa las ventanas
+"Otros caracteres: ┆ ┊ ∶ ⋮   
 
 
 """"" Para NerdTree     """""
 
 let NERDTreeQuitOnOpen=1
+
+
+""""" Para Fzf """""
+
 
 
 """"" Para YCM """""
@@ -87,13 +84,19 @@ let mapleader=" " "la tecla que inicia los atajos es el espacio
 
 
 """"" NerdTree """""
-
 "esp + nt
 nmap <Leader>nt :NERDTreeFind<CR> 
 
 
-""""" Editor Vim """""
+""""" Fzf """""
+"esp + f + f (Buscar un fichero a partir de ~/)
+nmap <Leader>ff :Files<CR>
 
+"esp + f + l (Busca una palabra en el fichero actual)
+nmap <Leader>fl :BLines<CR>
+
+
+""""" Editor Vim """""
 "guardar archivo
 map <Leader>w :w<CR>
 
@@ -132,6 +135,9 @@ call plug#begin()
 "Gruvbox
 Plug 'morhetz/gruvbox'
 
+"Desert-night
+Plug 'kooparse/vim-color-desert-night' 
+
 """""""""""""""""
 
 
@@ -145,8 +151,8 @@ Plug 'ryanoasis/vim-devicons'
 
 
 "permite buscar archivos facilmente
-Plug 'junegunn/fzf'           
-
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }           
+Plug 'junegunn/fzf.vim'
 """"""""""""""""""""""""""""""""""
 
 
@@ -180,5 +186,25 @@ call plug#end()
 
 """"""""""""""""""
 
+
+""""" TEMAS """""
+
+"Gruvbox
+"set background=dark
+"let g:gruvbox_contrast_dark = 'hard' "hard / medium / soft
+"hi Normal guibg=NONE ctermbg=NONE
+"colorscheme gruvbox
+
+"Desert-night
+"set termguicolors
+"colorscheme desert-night
+"let g:lightline = {'colorscheme' : 'desert_night'}
+
+"Railscast
+"set background=dark
+"set termguicolors
+colorscheme railscasts
+
+"""""""""""""""""
 
 
