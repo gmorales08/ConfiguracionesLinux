@@ -1,4 +1,4 @@
-""""""""""""""""""""""""""""""""
+"""""""""""""""""""""""""""""""
 """"" CONFIGURACION DE VIM """""
 """"""""""""""""""""""""""""""""
 
@@ -39,12 +39,26 @@ let g:ycm_autoclose_preview_window_after_completion = 1 "Cierra automaticamente 
 
 syntax enable
 
-set autoindent      "autoidenta al saltar de linea
-set smartindent     "tabulacion inteligente
-set expandtab       "convierte la tabulacion en espacios
-set tabstop=4       "cada tabulacion son 4 espacios
-
+"set autoindent      "autoidenta al saltar de linea
+"set smartindent     "tabulacion inteligente
+"set expandtab       "convierte la tabulacion en espacios
+"set tabstop=4       "cada tabulacion son 4 espacios
 set showmatch       "muestra parentesis de apertura y cierre
+
+  """ Para C """
+
+  autocmd BufNewFile,BufRead *.c,*.h,*.cpp 
+	\ set tabstop=4 |
+  	\ set shiftwidth=4 |
+  	\ set softtabstop=4 |
+  	\ set autoindent |
+  	\ set smartindent |
+	"\ set noexpandtab | ?
+  	\ set cinoptions+=l1 |
+  	\ set completeopt-=preview "para quitar la ventana de autocompletado
+
+  	"cpp
+	\ let g:ycm_global_ycm_extra_conf = '~/.vim/.ycm_global_ycm_extra_conf.py'
 
 
 """"" Status bar personalizada """""
@@ -105,8 +119,8 @@ map <Leader>q :q<CR>
 
 
 """"" Programacion """""
-"abre una terminal en la derecha
-nnoremap <Leader>t :below vertical terminal<CR>
+"abre una terminal en la ventana actual
+nnoremap <Leader>t :!bash<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""
@@ -175,7 +189,7 @@ Plug 'tpope/vim-surround'
 
 
 """"" C / C++ """""
-Plug 'octol/vim-cpp-enhanced-highlight'
+"Plug 'octol/vim-cpp-enhanced-highlight'
 
 
 
