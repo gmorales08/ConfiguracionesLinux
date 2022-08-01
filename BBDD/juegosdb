@@ -30,7 +30,8 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ('The Legend of Zelda', 'The Legend of Zelda', 'Nintendo', 'Nintendo', 'NES', 1986),
 ('Zelda II: The Adventure of Link', 'The Legend of Zelda', 'Nintendo', 'Nintendo', 'NES', 1987),
 ('Donkey Kong', 'Donkey Kong', 'Nintendo', 'Nintendo', 'NES', 1983),
-('Kirby''s Adventure', 'Kirby', 'HAL Laboratory', 'Nintendo', 'NES', 1993), 
+('Kirby''s Adventure', 'Kirby', 'HAL Laboratory', 'Nintendo', 'NES', 1993),
+('Dragon Warrior', 'Dragon Quest', 'Chunsoft', 'Enix', 'NES', 1986), 
 ('Mega Man 2', 'Mega Man', 'Capcom', 'Capcom', 'NES', 1988),
 ('Double Dragon', 'Double Dragon', 'Technos Japan', 'Tradewest', 'NES', 1988);
 
@@ -65,6 +66,7 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ###########
 
 INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma, Lanzamiento) VALUES
+('The Legend of Zelda: Link''s Awakening', 'The Legend of Zelda', 'Nintendo', 'Nintendo', 'Game Boy', 1993),
 ('Mystic Quest / Final Fantasy Adventure', 'Mana', 'Square', 'Square', 'Game Boy', 1991);
 
 
@@ -77,6 +79,14 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma, Lanzamiento) VALUES
 ('Super Mario 64', 'Super Mario', 'Nintendo', 'Nintendo', 'Nintendo 64', 1996),
 ('The Legend of Zelda: Ocarina of Time', 'The Legend of Zelda', 'Nintendo', 'Nintendo', 'Nintendo 64', 1998);
+
+
+##############
+# PLAYSTATION
+##############
+
+INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma, Lanzamiento) VALUES
+('Final Fantasy VII', 'Final Fantasy', 'Square', 'Square', 'PlayStation', 1997);
 
 
 ##### SEXTA GENERACION #####

@@ -45,7 +45,10 @@ syntax enable
 "set tabstop=4       "cada tabulacion son 4 espacios
 set showmatch       "muestra parentesis de apertura y cierre
 
-  """ Para C """
+  """ Para C/C++ """
+
+  set path=.,/usr/include,,       "Para detectar el directorio include en C
+  set path+=/usr/include/c++/10  "Para detectar el directorio inclucde en C++ (Debian11)
 
   autocmd BufNewFile,BufRead *.c,*.h,*.cpp 
 	\ set tabstop=4 |
@@ -122,7 +125,8 @@ map <Leader>q :q<CR>
 "abre una terminal en la ventana actual
 nnoremap <Leader>t :!bash<CR>
 
-
+"ejecuta make en la terminal
+nnoremap <Leader>m :!make<CR>
 """""""""""""""""""""""""""""""""""""""""""""
 
 
