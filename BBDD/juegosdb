@@ -125,7 +125,8 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ################
 
 INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma, Lanzamiento) VALUES
-('Tales of Vesperia', 'Tales of', 'Namco Tales Studio', 'Bandai Namco', 'PlayStation 3', 2009);
+('Tales of Vesperia', 'Tales of', 'Namco Tales Studio', 'Bandai Namco', 'PlayStation 3', 2009),
+('Tales of Zestiria', 'Tales of', 'Namco Tales Studio', 'Bandai Namco', 'PlayStation 3', 2015);
 
 
 ###########
@@ -170,6 +171,8 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma, Lanzamiento) VALUES
 ('Bloodborne', 'Souls', 'FromSoftware', 'Sony', 'PlayStation 4', 2015),
 ('God of War (God of War 4)', 'God of War', 'Santa Monica Studio', 'Sony', 'PlayStation 4', 2018),
+('Shadow of the Colossus (Remake)', 'Ico', 'Bluepoint Games', 'Sony', 'PlayStation 4', 2018),
+('NieR: Automata', 'NieR', 'PlatinumGames', 'Square Enix', 'PlayStation 4', 2017),
 ('Dragon Quest Builders', 'Dragon Quest', 'Square Enix', 'Square Enix', 'PlayStation 4', 2016),
 ('Final Fantasy VII Remake', 'Final Fantasy', 'Square Enix', 'Square Enix', 'PlayStation 4', 2020);
 
@@ -247,5 +250,5 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ('Trials of Mana (Remake)', 'Mana', 'Square Enix', 'Square Enix', 'Multiplataforma', 2020),
 ('Sonic Mania', 'Sonic', 'Christian Whitehead', 'Sega', 'Multiplataforma', 2017),
 ('Final Fantasy XV', 'Final Fantasy', 'Square Enix', 'Square Enix', 'Multiplataforma', 2016),
-('Nier Replicant ver.1.22', 'Nier', 'Toylogic', 'Square Enix', 'Multiplataforma',  2021);
+('NieR Replicant ver.1.22', 'NieR', 'Toylogic', 'Square Enix', 'Multiplataforma',  2021);
 
