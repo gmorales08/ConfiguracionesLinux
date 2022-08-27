@@ -72,7 +72,6 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ('Super Mario Land', 'Super Mario', 'Nintendo', 'Nintendo', 'Game Boy', 1989),
 ('Super Mario Land 2', 'Super Mario', 'Nintendo', 'Nintendo', 'Game Boy', 1992),
 ('The Legend of Zelda: Link''s Awakening', 'The Legend of Zelda', 'Nintendo', 'Nintendo', 'Game Boy', 1993),
-('Kirby''s Dream Land', 'Kirby', 'HAL Laboratory', 'Nintendo', 'Game Boy', 1992),
 ('Mystic Quest / Final Fantasy Adventure', 'Mana', 'Square', 'Square', 'Game Boy', 1991);
 
 
@@ -87,14 +86,6 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ('The Legend of Zelda: Ocarina of Time', 'The Legend of Zelda', 'Nintendo', 'Nintendo', 'Nintendo 64', 1998),
 ('F-Zero X', 'F-Zero', 'Nintendo', 'Nintendo', 'Nintendo 64', 1998),
 ('Star Fox 64', 'Star Fox', 'Nintendo', 'Nintendo', 'Nintendo 64', 1997);
-
-
-##############
-# SEGA SATURN 
-##############
-
-INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma, Lanzamiento) VALUES
-('Guardian Heroes', 'Guardian Heroes', 'Treasure', 'Sega', 'Sega Saturn', 1996);
 
 
 ##############
@@ -122,8 +113,7 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma, Lanzamiento) VALUES
 ('Final Fantasy X', 'Final Fantasy', 'Square', 'Square', 'PlayStation 2', 2001),
 ('Dragon Quest VIII: El periplo del Rey Maldito', 'Dragon Quest', 'Level-5', 'Square Enix', 'PlayStation 2', 2004),
-('Shin Megami Tensei III: Nocturne', 'Shin Megami Tensei', 'Atlus', 'Atlus', 'PlayStation 2', 2003),
-('Devil May Cry', 'Devil May Cry', 'Capcom', 'Capcom', 'PlayStation 2', 2001);
+('Shin Megami Tensei III: Nocturne', 'Shin Megami Tensei', 'Atlus', 'Atlus', 'PlayStation 2', 2003);
 
 
 #######
@@ -240,8 +230,7 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ('Octopath Traveler', 'Octopath Traveler', 'Square Enix', 'Square Enix', 'Nintendo Switch', 2018),
 ('Dragon Quest XI S: Ecos de un pasado perdido - Edicion Definitiva', 'Dragon Quest', 'Square Enix', 'Square Enix', 'Nintendo Switch', 2019),
 ('Ultra Street Fighter II: The Final Challengers', 'Street Fighter', 'Capcom', 'Capcom', 'Nintendo Switch', 2017),
-('Monster Hunter Rise', 'Monster Hunter', 'Capcom', 'Capcom', 'Nintendo Switch', 2021),
-('Monster Hunter Rise: Sunbreak', 'Monster Hunter', 'Capcom', 'Capcom', 'Nintendo Switch', 2022);
+('Monster Hunter Rise', 'Monster Hunter', 'Capcom', 'Capcom', 'Nintendo Switch', 2021);
 
 
 ##### INTERGENERACIONALES #####
@@ -251,8 +240,7 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 #########
 
 INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma, Lanzamiento) VALUES
-('Final Fight', 'Final Fight', 'Capcom', 'Capcom', 'Arcade', 1989),
-('DonPachi', 'DonPachi', 'Cave', 'Atlus', 'Arcade', 1995);
+('Final Fight', 'Final Fight', 'Capcom', 'Capcom', 'Arcade', 1989);
 
 
 #####
