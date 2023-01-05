@@ -17,6 +17,13 @@ from juegos group by 1,2,3,4;
 SELECT saga, count(*) AS 'Numero de juegos' FROM juegos GROUP BY saga ORDER BY 2 DESC;
 
 
+#######################
+# AGRUPAR POR CONSOLA #
+#######################
+
+SELECT Plataforma, count(*) AS 'Numero de juegos' FROM juegos GROUP BY Plataforma ORDER BY 2 DESC;
+
+
 #############################
 # MOSTRAR LINEAS DUPLICADAS #
 #############################

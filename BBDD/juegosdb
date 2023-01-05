@@ -73,6 +73,7 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ('Super Mario Land 2', 'Super Mario', 'Nintendo', 'Nintendo', 'Game Boy', 1992),
 ('The Legend of Zelda: Link''s Awakening', 'The Legend of Zelda', 'Nintendo', 'Nintendo', 'Game Boy', 1993),
 ('Kirby''s Dream Land', 'Kirby', 'HAL Laboratory', 'Nintendo', 'Game Boy', 1992),
+('Kirby''s Dream Land 2', 'Kirby', 'HAL Laboratory', 'Nintendo', 'Game Boy', 1995),
 ('Mystic Quest / Final Fantasy Adventure', 'Mana', 'Square', 'Square', 'Game Boy', 1991);
 
 
@@ -86,7 +87,8 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ('Super Mario 64', 'Super Mario', 'Nintendo', 'Nintendo', 'Nintendo 64', 1996),
 ('The Legend of Zelda: Ocarina of Time', 'The Legend of Zelda', 'Nintendo', 'Nintendo', 'Nintendo 64', 1998),
 ('F-Zero X', 'F-Zero', 'Nintendo', 'Nintendo', 'Nintendo 64', 1998),
-('Star Fox 64', 'Star Fox', 'Nintendo', 'Nintendo', 'Nintendo 64', 1997);
+('Star Fox 64', 'Star Fox', 'Nintendo', 'Nintendo', 'Nintendo 64', 1997),
+('Kirby 64: The Cristal Shards', 'Kirby', 'HAL Laboratory', 'Nintendo', 'Nintendo 64', 2000);
 
 
 ##############
@@ -237,6 +239,7 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 ('Pokemon Escudo', 'Pokemon', 'Game Freak', 'Nintendo', 'Nintendo Switch', 2019),
 ('Pokemon Legendas: Arceus', 'Pokemon', 'Game Freak', 'Nintendo', 'Nintendo Switch', 2022),
 ('Fire Emblem: Three Houses', 'Fire Emblem', 'Intelligent Systems', 'Nintendo', 'Nintendo Switch', 2019),
+('Xenoblade Chronicles 2', 'Xenoblade Chronicles', 'Monolith Soft', 'Nintendo', 'Nintendo Switch', 2017),
 ('Octopath Traveler', 'Octopath Traveler', 'Square Enix', 'Square Enix', 'Nintendo Switch', 2018),
 ('Dragon Quest XI S: Ecos de un pasado perdido - Edicion Definitiva', 'Dragon Quest', 'Square Enix', 'Square Enix', 'Nintendo Switch', 2019),
 ('Ultra Street Fighter II: The Final Challengers', 'Street Fighter', 'Capcom', 'Capcom', 'Nintendo Switch', 2017),
@@ -252,6 +255,7 @@ INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma,
 
 INSERT IGNORE INTO juegos(Nombre, Saga, Desarrollador, Distribuidor, Plataforma, Lanzamiento) VALUES
 ('Final Fight', 'Final Fight', 'Capcom', 'Capcom', 'Arcade', 1989),
+('The King of Dragons', 'The King of Dragons', 'Capcom', 'Capcom', 'Arcade', 1991),
 ('DonPachi', 'DonPachi', 'Cave', 'Atlus', 'Arcade', 1995);
 
 
