@@ -1,3 +1,6 @@
 [submodule "ManualLinux"]
 	path = ManualLinux
 	url = git@github.com:gmorales08/ManualLinux.git
+[submodule "Dotfiles"]
+	path = Dotfiles
+	url = git@github.com:gmorales08/Dotfiles.git

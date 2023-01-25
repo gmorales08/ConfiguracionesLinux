@@ -1,10 +1,6 @@
-# undo files y swap files
 *.un*
 *.swp*
-
-
-### VIM ###
-
-#instalacion de los plugins
-/CONFIGURACIONES/VIM/.vim/plugged/
+apps
+Personalizacion/*
+BBDD/*
 
